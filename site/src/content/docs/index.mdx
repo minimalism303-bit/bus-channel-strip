@@ -1,0 +1,96 @@
+---
+title: Bus Channel Strip
+description: Professional 7-module bus processor — VST3 & CLAP plugin for Reaper, Bitwig, Cubase, and more.
+template: splash
+hero:
+  tagline: Seven classic processors. One signal chain. Zero compromises.
+  actions:
+    - text: Download v0.5.0
+      link: https://github.com/fsecada01/bus_channel_strip/releases/latest
+      icon: external
+      variant: primary
+    - text: Module Reference
+      link: /bus_channel_strip/modules/
+      icon: right-arrow
+      variant: secondary
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<Card title="New in v0.5.0">
+**Pultec EQ is completely remodeled.** The LF section now includes an authentic LCR resonant bump (45% of shelf gain at Q=1.8) that matches the inductor resonance of the original hardware. LF Boost and LF Cut ranges extended to 18 dB. LF Boost Freq now spans 20–300 Hz. New Bandwidth controls on both LF Boost and LF Cut let you dial in shelf width from narrow (Q=1.0) to wide (Q=0.25), making the boost present in the musical 100–300 Hz range.
+
+**New: Haas module** — psychoacoustic stereo widening via M/S encoding and Haas effect comb filtering. Two modes: Side Comb (mono-compatible) and Wide Comb (diffuse). Hermite-interpolated delay from 1–20 ms with smooth automation and RMS-safe automatic output trim.
+
+[See the full changelog](/bus_channel_strip/changelog/)
+</Card>
+
+## Signal Chain
+
+<div class="signal-chain">
+  <span class="node node-eq">API5500 EQ</span>
+  <span class="arrow">→</span>
+  <span class="node node-comp">ButterComp2</span>
+  <span class="arrow">→</span>
+  <span class="node node-pultec">Pultec EQ</span>
+  <span class="arrow">→</span>
+  <span class="node node-dyneq">Dynamic EQ</span>
+  <span class="arrow">→</span>
+  <span class="node node-xfm">Transformer</span>
+  <span class="arrow">→</span>
+  <span class="node node-haas">Haas</span>
+  <span class="arrow">→</span>
+  <span class="node node-punch">Punch</span>
+</div>
+
+Every module is independently bypassable, fully automatable, and reorderable at runtime via the drag-to-swap UI.
+
+## Modules
+
+<div class="module-grid">
+  <div class="module-card card-eq">
+    <h3>API5500 EQ</h3>
+    <p>5-band semi-parametric EQ modeled on the API 5500 console equalizer. LF/HF shelves, and three parametric bands (LMF, MF, HMF) ordered low to high.</p>
+  </div>
+  <div class="module-card card-comp">
+    <h3>ButterComp2</h3>
+    <p>Four compression models in one module: Classic Airwindows bipolar glue, VCA (1176-style character), Optical (program-dependent release), and FET (aggressive drive). Built-in NY parallel Mix on every model.</p>
+  </div>
+  <div class="module-card card-pultec">
+    <h3>Pultec EQ</h3>
+    <p>EQP-1A style passive equalizer with authentic LCR resonant bump, simultaneous boost/cut, and bandwidth controls. 18 dB range, 20–300 Hz LF coverage, tube saturation.</p>
+  </div>
+  <div class="module-card card-dyneq">
+    <h3>Dynamic EQ</h3>
+    <p>4-band frequency-dependent dynamics with Compress, Expand, and Gate modes. Real-time spectral analyzer with GR metering. Optional sidechain masking analysis.</p>
+  </div>
+  <div class="module-card card-xfm">
+    <h3>Transformer</h3>
+    <p>Vintage/Modern/British/American transformer coloration. Structured INPUT / OUTPUT / TONE sections with independent saturation and frequency shaping at each stage.</p>
+  </div>
+  <div class="module-card card-haas">
+    <h3>Haas</h3>
+    <p>Psychoacoustic stereo widener via M/S encoding and Haas effect comb filtering. Side Comb (mono-compatible) and Wide Comb modes. 1–20 ms Hermite delay, RMS-safe output trim.</p>
+  </div>
+  <div class="module-card card-punch">
+    <h3>Punch</h3>
+    <p>Transparent clipper with Hard/Soft/Cubic modes, up to 8x oversampling, and pre-clip transient shaper for loudness maximization without pumping.</p>
+  </div>
+</div>
+
+## Formats & Platforms
+
+| Platform | VST3 | CLAP |
+|----------|------|------|
+| **Windows** | ✓ | ✓ |
+| **macOS Apple Silicon** | ✓ | ✓ |
+| **macOS Intel** | ✓ | ✓ |
+| **Linux** | ✓ | ✓ |
+
+Tested in **Reaper** (primary), **Bitwig Studio**, **Cubase**, **FL Studio**, **Ableton Live**.
+
+## Built With
+
+- **[NIH-Plug](https://github.com/robbert-vdh/nih-plug)** — Rust VST3/CLAP plugin framework
+- **[vizia-plug](https://github.com/vizia/vizia-plug)** — GPU-accelerated GUI (Skia backend)
+- **[Airwindows](https://github.com/airwindows/airwindows)** — C++ DSP algorithms via Rust FFI

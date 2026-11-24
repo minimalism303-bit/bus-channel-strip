@@ -1,0 +1,37 @@
+name: Build Windows VST3
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust nightly
+        uses: dtolnay/rust-toolchain@nightly
+        with:
+          targets: x86_64-pc-windows-msvc
+
+      - name: Build VST3 + CLAP (with GUI)
+        shell: pwsh
+        env:
+          LIBCLANG_PATH: C:/Program Files/LLVM/bin
+          LLVM_HOME: C:/Program Files/LLVM
+        run: >
+          cargo +nightly run --package xtask -- bundle bus_channel_strip --release
+          --features api5500,buttercomp2,pultec,transformer,punch,haas,dynamic_eq,sheen,gui
+
+      - name: Upload VST3
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bus-Channel-Strip-VST3-Windows
+          path: target/bundled/Bus-Channel-Strip.vst3
+
+      - name: Upload CLAP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Bus-Channel-Strip-CLAP-Windows
+          path: target/bundled/Bus-Channel-Strip.clap
